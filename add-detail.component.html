@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>Add Detail</nb-card-header>
+            <nb-card-body>
+                <form #AddDetail="ngForm" (ngSubmit)="AddDetail.valid && onImageFileSelected()">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label for="service">Service *</label>
+                                <select class="form-control" #serviceId="ngModel" id="service"
+                                    [(ngModel)]="WhyService.selectedWhyService.serviceId" name="serviceId" required>
+                                    <option value="">Select Service</option>
+                                    <option *ngFor="let ser of serviceresponse" value="{{ser._id}}">{{ser.title}}
+                                    </option>
+                                </select>
+                                <div *ngIf="AddDetail.submitted && !serviceId.valid">
+                                    <label class="alert alert-danger">This field is
+                                        required.</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label for="title">Title *</label>
+                                <input #title="ngModel" type="text" [(ngModel)]="WhyService.selectedWhyService.title"
+                                    class="form-control" name="title" placeholder="Title" required
+                                    [ngClass]="{'invalid-textbox' :AddDetail.submitted && !title.valid }"
+                                    maxlength="100">
+                                <div *ngIf="AddDetail.submitted && !title.valid">
+                                    <label class="alert alert-danger">This field is required.</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label for="subtitle">Sub Title *</label>
+                                <input #subtitle="ngModel" type="text"
+                                    [(ngModel)]="WhyService.selectedWhyService.subtitle" class="form-control"
+                                    name="subtitle" placeholder="Sub Title" required
+                                    [ngClass]="{'invalid-textbox' :AddDetail.submitted && !subtitle.valid }"
+                                    maxlength="100">
+                                <div *ngIf="AddDetail.submitted && !subtitle.valid">
+                                    <label class="alert alert-danger">This field is required.</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description *</label>
+                        <ckeditor #description="ngModel" name="description"
+                            [(ngModel)]="WhyService.selectedWhyService.description"
+                            [config]="{ extraPlugins: 'divarea', height: '320' }" required
+                            [ngClass]="{'invalid-textbox' :AddDetail.submitted && !description.valid }">
+                        </ckeditor>
+                        <div *ngIf="AddDetail.submitted && !description.valid">
+                            <label class="alert alert-danger">This field is required.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label for="image">Profile Photo</label>
+                                <div>
+                                    <input type="file" name="fileInput" #fileInput class="form-control"
+                                        (change)="onFileChanged($event)" placeholder="Upload  Image"
+                                        accept=".png,.jpeg,.jpg">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-submit" [disabled]="showLoader">Submit</button>
+                    <div id="page-loading" class="form-loader" *ngIf="showLoader" style="float:right;">
+                        <img style="width: 29px;height: 29px;" src="https://res.cloudinary.com/market24-com/image/upload/v1554363868/ds3olctu8bkesqcdkpzh.gif" />
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
